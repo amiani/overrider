@@ -36,9 +36,9 @@ export const printExperimentSummary = ({
 
 	const output = summary.map((treatmentSummary, i) => `\
 Treatment #${i}: ${experiment.treatments[i].name}
-LCP: ${printSummary(treatmentSummary.lcp)}
-CLS: ${printSummary(treatmentSummary.cls)}
-TBT: ${printSummary(treatmentSummary.tbt)}
+LCP: ${printSummary(2)(treatmentSummary.lcp)}
+CLS: ${printSummary(4)(treatmentSummary.cls)}
+TBT: ${printSummary(2)(treatmentSummary.tbt)}
 `);
 
 	output.map((treatment) => console.log(treatment));

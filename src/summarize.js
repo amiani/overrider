@@ -18,8 +18,8 @@ export const summarize = (nums = []) => ({
 	std: std(nums),
 });
 
-export const printSummary = (summary) => `\
-min: ${summary.min.toFixed(2)} mean: ${summary.mean.toFixed(2)} \
-median: ${summary.median.toFixed(2)} std: ${summary.std.toFixed(2)} \
-max: ${summary.max.toFixed(2)}\
+export const printSummary = (scale = 2) => (summary) => `\
+min: ${summary.min.toFixed(scale)} mean: ${summary.mean.toFixed(scale)} \
+median: ${summary.median.toFixed(scale)} std: ${summary.std.toFixed(scale)} \
+max: ${summary.max.toFixed(scale)}\
 `;
