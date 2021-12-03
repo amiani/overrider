@@ -29,15 +29,13 @@ const desktopConfig = {
 	//passes: createPasses(2),
 };
 
-export default (
+export default ({
 	browser,
-	{
-		numSamples = 1,
-		url = "https://www.retailmenot.com/view/kohls.com",
-		config = desktopConfig,
-		logLevel = "info",
-	}
-) =>
+	numSamples = 1,
+	url = "https://www.retailmenot.com/view/kohls.com",
+	config = desktopConfig,
+	logLevel = "info",
+}) =>
 async (treatment) => {
 	console.log(`Running treatment: ${treatment.name}`);
 	browser.removeAllListeners();

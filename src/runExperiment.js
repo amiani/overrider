@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
 
-import runTest from './runTest.js';
+import runTreatment from './runTreatment.js';
 import mapAsync from "./mapAsync.js";
 import loadExperiment from "./loadExperiment.js";
 import { summarizeExperiment, printExperimentSummary } from "./summarizeExperiment.js";
@@ -12,14 +12,14 @@ export default async (experimentPath = '') => {
 	});
 
   const experiment = await loadExperiment(experimentPath);
-	const config = {
+	const runConfiguredTreatment = runTreatment({
+		browser,
 		numSamples: experiment.numSamples,
 		url: experiment.url,
 		logLevel: 'silent',
-	};
-	const runTreatments = mapAsync(runTest(browser, config));
+	});
 
-	const results = await runTreatments(experiment.treatments);
+	const results = await mapAsync(runConfiguredTreatment)(experiment.treatments);
 	const summary = summarizeExperiment(results);
 	printExperimentSummary({ experiment, summary });
 
