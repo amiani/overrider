@@ -1,15 +1,17 @@
 {
-	"name": "nopres",
+	"name": "no_pres",
 	"url": "https://www.retailmenot.com/view/kohls.com",
-	"numSamples": 30,
+	"numSamples": 50,
 	"baseline": {
+		"name": "baseline",
 		"remotePath": "https://www.retailmenot.com/view/kohls.com",
 		"localPath": "./kohls.com.live"
 	},
 	"treatments": [
 		{
+			"name": "no_pres",
 			"remotePath": "https://www.retailmenot.com/view/kohls.com",
-			"localPath": "./kohls.com.nopres"
+			"localPath": "./kohls.com.no_pres"
 		}
 	]
 }
