@@ -32,7 +32,7 @@ export const printExperimentSummary = ({
 	experiment,
 	summary = []
 }) => {
-	console.log(`${experiment.name}: ${experiment.numSamples} samples`);
+	console.log(`\n${experiment.name}: ${experiment.numSamples} samples`);
 
 	const output = summary.map((treatmentSummary, i) => `\
 Treatment #${i}: ${experiment.treatments[i].name}
