@@ -8,3 +8,9 @@
 ```
 
 ## Usage
+
+```sh
+ yarn launch <experiment.json>
+```
+
+Refer to [experiment.json](examples/no_pres/experiment.json) files in the [examples](examples) dir to see how to configure an experiment.

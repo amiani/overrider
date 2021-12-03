@@ -5,6 +5,9 @@
   "repository": "https://github.com/amiani/overrider.git",
   "author": "amiani",
   "license": "MIT",
+  "scripts": {
+    "launch": "node index.js"
+  },
   "dependencies": {
     "lighthouse": "^9.1.0",
     "puppeteer": "^12.0.1"
