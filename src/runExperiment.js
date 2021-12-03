@@ -3,8 +3,7 @@ import puppeteer from "puppeteer";
 import runTest from './runTest.js';
 import mapAsync from "./mapAsync.js";
 import loadExperiment from "./loadExperiment.js";
-import summarizeExperiment from "./summarizeExperiment.js";
-import printSummary from "./printSummary.js";
+import { summarizeExperiment, printExperimentSummary } from "./summarizeExperiment.js";
 
 export default async (experimentPath = '') => {
 	const browser = await puppeteer.launch({
@@ -13,17 +12,17 @@ export default async (experimentPath = '') => {
 	});
 
   const experiment = await loadExperiment(experimentPath);
-	const runTreatments = mapAsync(
-		runTest(browser, {
-			numSamples: experiment.numSamples,
-			url: experiment.url,
-			logLevel: 'silent',
-		}
-	));
+	const config = {
+		numSamples: experiment.numSamples,
+		url: experiment.url,
+		logLevel: 'silent',
+	};
+	const runTreatments = mapAsync(runTest(browser, config));
 
-	const results = await runTreatments(experiment.treatments)
+	const overrides = experiment.treatments.map(t => t.override);
+	const results = await runTreatments(overrides);
 	const summary = summarizeExperiment(results);
-	printSummary(experiment, summary);
+	printExperimentSummary({ experiment, summary });
 
 	await browser.close();
 }
