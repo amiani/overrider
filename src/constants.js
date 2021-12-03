@@ -1,3 +1,5 @@
+//copied from https://github.com/lighthouse/lighthouse-core/config/constants.js
+
 export const DESKTOP_EMULATION_METRICS = {
 	mobile: false,
 	width: 1350,
