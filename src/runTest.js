@@ -35,12 +35,13 @@ export default (
 		numSamples = 1,
 		url = "https://www.retailmenot.com/view/kohls.com",
 		config = desktopConfig,
-		logLevel = "silent",
+		logLevel = "info",
 	}
 ) =>
-async (override = () => void 0) => {
+async (treatment) => {
+	console.log(`Running treatment: ${treatment.name}`);
 	browser.removeAllListeners();
-	browser.on("targetcreated", override);
+	browser.on("targetcreated", treatment.override);
 
 	const results = [];
 	for (let i = 0; i < numSamples; i++) {

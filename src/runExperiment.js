@@ -19,8 +19,7 @@ export default async (experimentPath = '') => {
 	};
 	const runTreatments = mapAsync(runTest(browser, config));
 
-	const overrides = experiment.treatments.map(t => t.override);
-	const results = await runTreatments(overrides);
+	const results = await runTreatments(experiment.treatments);
 	const summary = summarizeExperiment(results);
 	printExperimentSummary({ experiment, summary });
 
