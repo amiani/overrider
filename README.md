@@ -1,4 +1,4 @@
-# Local Override testing with Lighthouse and Puppeteer
+# Local override comparison testing with Lighthouse and Puppeteer
 
 ## Installation
 

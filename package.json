@@ -1,8 +1,8 @@
 {
-  "name": "override_tester",
+  "name": "overrider",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/amiani/override_tester.git",
+  "repository": "https://github.com/amiani/overrider.git",
   "author": "amiani",
   "license": "MIT",
   "dependencies": {
