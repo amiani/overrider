@@ -45,7 +45,7 @@ async (treatment) => {
 
 	const results = [];
 	for (let i = 0; i < numSamples; i++) {
-		const result = await lighthouse(
+		results.push(await lighthouse(
 			url,
 			{
 				port: new URL(browser.wsEndpoint()).port,
@@ -53,8 +53,7 @@ async (treatment) => {
 				logLevel,
 			},
 			config
-		);
-		results.push(result);
+		));
 	}
 	return results;
 }
