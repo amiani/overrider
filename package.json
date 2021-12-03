@@ -1,0 +1,13 @@
+{
+  "name": "override_tester",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/amiani/override_tester.git",
+  "author": "amiani",
+  "license": "MIT",
+  "dependencies": {
+    "lighthouse": "^9.1.0",
+    "puppeteer": "^12.0.1"
+  },
+  "type": "module"
+}

@@ -1,0 +1,12 @@
+{
+	"baseline": {
+		"remotePath": "https://www.retailmenot.com/view/kohls.com",
+		"localPath": "../overrides/kohls.com.live"
+	},
+	"treatments": [
+		{
+			"remotePath": "https://www.retailmenot.com/view/kohls.com",
+			"localPath": "../overrides/kohls.com.modified"
+		}
+	]
+}
