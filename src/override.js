@@ -1,19 +1,17 @@
-import fs from 'fs';
-
-export default (remotePath = '') => (localPath = '') => async (target) => {
+export default (remotePath = '') => (file) => async (target) => {
 	const page = await target.page();
 	if (page) {
 		await page.setRequestInterception(true);
-		page.on("request", intercept({ remotePath, localPath }));
+		page.on("request", intercept({ remotePath, file }));
 	}
 }
 
-const intercept = ({ remotePath = '', localPath = '' }) => (req) => {
+const intercept = ({ remotePath = '', file }) => (req) => {
 	const url = req.url();
 
-	if (url === remotePath && !url.match(localPath)) {
-		console.log(`replacing ${remotePath} with ${localPath}`);
-		req.respond({ body: fs.readFileSync(localPath)});
+	if (url === remotePath /*&& !url.match(localPath)*/) {
+		//console.log(`replacing ${remotePath} with ${localFile.}`);
+		req.respond({ body: file });
 	} else {
 		req.continue();
 	}

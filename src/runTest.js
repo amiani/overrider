@@ -29,6 +29,7 @@ export default (
 		numSamples = 1,
 		url = "https://www.retailmenot.com/view/kohls.com",
 		config = desktopConfig,
+		logLevel = "silent",
 	}
 ) =>
 async (override = () => void 0) => {
@@ -42,7 +43,7 @@ async (override = () => void 0) => {
 			{
 				port: new URL(browser.wsEndpoint()).port,
 				output: "json",
-				//logLevel: "info",
+				logLevel,
 			},
 			config
 		);
