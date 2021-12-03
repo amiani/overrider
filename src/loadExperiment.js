@@ -13,7 +13,6 @@ export default async (configPath = '') => {
 
 	return {
 		...config,
-		baseline: createTreatment(config.baseline),
 		treatments: config.treatments.map(createTreatment),
 	};
 }
