@@ -36,10 +36,10 @@ export default ({
 	config = desktopConfig,
 	logLevel = "info",
 }) =>
-async (treatment) => {
-	console.log(`Running treatment: ${treatment.name}`);
+async (intervention) => {
+	console.log(`Running intervention: ${intervention.name}`);
 	browser.removeAllListeners();
-	browser.on("targetcreated", treatment.override);
+	browser.on("targetcreated", intervention.override);
 
 	const results = [];
 	for (let i = 0; i < numSamples; i++) {

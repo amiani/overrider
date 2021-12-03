@@ -1,8 +1,8 @@
 {
 	"name": "no_pres",
 	"url": "https://www.retailmenot.com/view/kohls.com",
-	"numSamples": 1,
-	"treatments": [
+	"numSamples": 10,
+	"interventions": [
 		{
 			"name": "baseline",
 			"remotePath": "https://www.retailmenot.com/view/kohls.com",

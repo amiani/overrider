@@ -6,16 +6,16 @@ export default async (configPath = '') => {
 	const configFile = await fs.promises.readFile(configPath, 'utf8');
 	const config = JSON.parse(configFile);
 
-	const createOverride = (treatment) =>
+	const createOverride = (intervention) =>
 		override
-			(treatment.remotePath)
-			(path.resolve(path.dirname(configPath), treatment.localPath));
+			(intervention.remotePath)
+			(path.resolve(path.dirname(configPath), intervention.localPath));
 
 	return {
 		...config,
-		treatments: config.treatments.map((treatment) => ({
-			...treatment,
-			override: createOverride(treatment),
+		interventions: config.interventions.map((intervention) => ({
+			...intervention,
+			override: createOverride(intervention),
 		})),
 	};
 }

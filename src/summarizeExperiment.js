@@ -12,20 +12,20 @@ const appendTrial = (cwv, trial) => ({
 	tbt: [...cwv.tbt, trial.tbt],
 });
 
-const aggregateCWV = (treatment) =>
-	treatment
+const aggregateCWV = (intervention) =>
+	intervention
 		.map(getCWV)
 		.reduce(appendTrial, { lcp: [], cls: [], tbt: [] });
 		
-const summarizeTreatment = (treatment) => ({
-	lcp: summarize(treatment.lcp),
-	cls: summarize(treatment.cls),
-	tbt: summarize(treatment.tbt),
+const summarizeIntervention = (intervention) => ({
+	lcp: summarize(intervention.lcp),
+	cls: summarize(intervention.cls),
+	tbt: summarize(intervention.tbt),
 });
 
 export const summarizeExperiment = (results) => results
 	.map(aggregateCWV)
-	.map(summarizeTreatment);
+	.map(summarizeIntervention);
 
 
 export const printExperimentSummary = ({
@@ -34,12 +34,12 @@ export const printExperimentSummary = ({
 }) => {
 	console.log(`\n${experiment.name}: ${experiment.numSamples} samples`);
 
-	const output = summary.map((treatmentSummary, i) => `
-Treatment #${i}: ${experiment.treatments[i].name}
-LCP: ${printSummary(2)(treatmentSummary.lcp)}
-CLS: ${printSummary(4)(treatmentSummary.cls)}
-TBT: ${printSummary(2)(treatmentSummary.tbt)}
+	const output = summary.map((interventionSummary, i) => `
+Intervention #${i}: ${experiment.interventions[i].name}
+LCP: ${printSummary(2)(interventionSummary.lcp)}
+CLS: ${printSummary(4)(interventionSummary.cls)}
+TBT: ${printSummary(2)(interventionSummary.tbt)}
 `);
 
-	output.map((treatment) => console.log(treatment));
+	output.map((intervention) => console.log(intervention));
 }
