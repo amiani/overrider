@@ -3,6 +3,7 @@ import { URL } from "url";
 
 import { DESKTOP_EMULATION_METRICS, DESKTOP_USERAGENT, desktopDense4G } from "./constants.js";
 
+/*
 const createPasses = (numPasses = 0) => {
 	const passes = [];
 	for (let i = 0; i < numPasses; i++) {
@@ -10,11 +11,16 @@ const createPasses = (numPasses = 0) => {
 	};
 	return passes;
 };
+*/
 
 const desktopConfig = {
 	extends: "lighthouse:default",
 	settings: {
-		onlyAudits: ["largest-contentful-paint"],
+		onlyAudits: [
+			"largest-contentful-paint",
+			"cumulative-layout-shift",
+			"total-blocking-time",
+		],
 		formFactor: "desktop",
 		screenEmulation: DESKTOP_EMULATION_METRICS,
 		emulatedUserAgent: DESKTOP_USERAGENT,
