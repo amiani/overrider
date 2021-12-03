@@ -11,6 +11,7 @@ const std = (arr = []) => {
 };
 
 export const summarize = (nums = []) => ({
+	n: nums.length,
 	min: Math.min(...nums),
 	max: Math.max(...nums),
 	mean: mean(nums),
