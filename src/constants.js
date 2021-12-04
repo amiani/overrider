@@ -18,3 +18,12 @@ export const desktopDense4G = {
 	downloadThroughputKbps: 0,
 	uploadThroughputKbps: 0,
 };
+
+export const NO_THROTTLING = {
+	rttMs: 0,
+	throughputKbps: 0,
+	cpuSlowdownMultiplier: 1,
+	requestLatencyMs: 0, // 0 means unset
+	downloadThroughputKbps: 0,
+	uploadThroughputKbps: 0,
+};
