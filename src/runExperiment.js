@@ -1,4 +1,7 @@
 import puppeteer from "puppeteer";
+import throttle from "@sitespeed.io/throttle";
+import fs from 'fs';
+import path from 'path';
 
 import runIntervention from './runIntervention.js';
 import mapAsync from "./mapAsync.js";
@@ -18,9 +21,15 @@ export default async (experimentPath = '') => {
 		url: experiment.url,
 		logLevel: 'silent',
 	});
-
+	
+	//await throttle.start({ up: 10 * 1024, down: 10 * 1024, rtt: 40 });
 	const results = await mapAsync(runConfiguredIntervention)(experiment.interventions);
 	const summary = summarizeExperiment(results);
+	const resultDirPath = path.join(path.dirname(experimentPath), `results_${new Date().getTime()}`);
+	await fs.promises.mkdir(resultDirPath);
+	await fs.promises.writeFile(path.join(resultDirPath, 'summary.json'), JSON.stringify(summary, null, 2));
+	//await throttle.stop();
+
 	printExperimentSummary({ experiment, summary });
 
 	await browser.close();
