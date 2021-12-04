@@ -1,7 +1,7 @@
 import lighthouse from "lighthouse";
 import { URL } from "url";
 
-import { DESKTOP_EMULATION_METRICS, DESKTOP_USERAGENT, desktopDense4G } from "./constants.js";
+import { DESKTOP_EMULATION_METRICS, DESKTOP_USERAGENT, desktopDense4G, NO_THROTTLING } from "./constants.js";
 
 /*
 const createPasses = (numPasses = 0) => {
@@ -24,7 +24,8 @@ const desktopConfig = {
 		formFactor: "desktop",
 		screenEmulation: DESKTOP_EMULATION_METRICS,
 		emulatedUserAgent: DESKTOP_USERAGENT,
-		throttling: desktopDense4G,
+		throttlingMethod: 'provided',
+		throttling: NO_THROTTLING,
 	},
 	//passes: createPasses(2),
 };
