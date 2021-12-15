@@ -27,7 +27,6 @@ export const summarizeExperiment = (results) => results
 	.map(aggregateCWV)
 	.map(summarizeIntervention);
 
-
 export const printExperimentSummary = ({
 	experiment,
 	summary = []
@@ -38,7 +37,7 @@ export const printExperimentSummary = ({
 Intervention #${i}: ${experiment.interventions[i].name}
 LCP: ${printSummary(2)(interventionSummary.lcp)}
 CLS: ${printSummary(4)(interventionSummary.cls)}
-TBT: ${printSummary(2)(interventionSummary.tbt)}
+TBT: ${/*printSummary(2)(interventionSummary.tbt)*/''}
 `);
 
 	output.map((intervention) => console.log(intervention));

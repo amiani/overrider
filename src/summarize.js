@@ -1,4 +1,4 @@
-const mean = (nums = []) => nums.reduce((a, b) => a + b) / nums.length;
+const mean = (nums = []) => nums.reduce((a, b) => a + b, 0) / nums.length;
 
 const median = (nums = []) => {
 	const sorted = nums.sort((a, b) => a - b);
