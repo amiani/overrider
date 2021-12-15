@@ -41,7 +41,7 @@ const sample = ({ url, port, logLevel, config, }) =>
 		config
 	);
 
-const saveResults = (dir) => async ({ name, result }) => {
+const saveResult = async ({ dir, name, result }) => {
 	!fs.existsSync(dir) && await fs.promises.mkdir(dir);
 	await fs.promises.writeFile(path.join(dir, `${name}.json`), JSON.stringify(result, null, 2));
 };
@@ -67,7 +67,7 @@ async (intervention) => {
 				config,
 			});
 			results.push(result);
-			outDir && await saveResults(outDir)({ name: `intervention-${intervention.name}-${i}`, result });
+			outDir && await saveResult({ dir: outDir, name: `intervention-${intervention.name}-${i}`, result });
 		}
 		finally {
 			await browser.close();
