@@ -9,7 +9,7 @@ import { summarizeExperiment, printExperimentSummary } from "./summarizeExperime
 export default async (experimentPath = '', outPath) => {
   const experiment = await loadExperiment(experimentPath);
 	const outDir = path.join(path.dirname(experimentPath), `results_${new Date().getTime()}`);
-	const runConfiguredIntervention = runIntervention({
+	const runInterventionConfigured = runIntervention({
 		numSamples: experiment.numSamples,
 		url: experiment.url,
 		logLevel: 'silent',
@@ -20,7 +20,7 @@ export default async (experimentPath = '', outPath) => {
 	let results;
 	try {
 		await throttle.start({ up: 10 * 1024, down: 10 * 1024, rtt: 40 });
-		results = await mapAsync(runConfiguredIntervention)(experiment.interventions);
+		results = await mapAsync(runInterventionConfigured)(experiment.interventions);
 	} catch (err) {
 		console.error(err);
 	} finally {
