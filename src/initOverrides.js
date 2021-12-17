@@ -9,8 +9,20 @@ export default (overrideConfigs) => async (target) => {
 
 const intercept = (overrides = []) => (req) => {
 	const url = req.url();
-	const override = overrides.find(o => o.remotePath === url && !url.match(o.localPath));
-	override
-		? req.respond({ body: override.file })
-		: req.continue();
+	const override = overrides.find(o =>
+		o.remotePath === url && !url.match(o.localPath)
+	);
+	if (!override) {
+		req.continue();
+		return;
+	}
+	return new Promise(resolve =>
+		setTimeout(
+			() => {
+				req.respond({ body: override.file });
+				resolve();
+			},
+			override.delay || 0
+		)
+	);
 }

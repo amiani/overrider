@@ -5,23 +5,30 @@
 	"outputDir": "./results",
 	"interventions": [
 		{
-			"name": "proxima_from disk",
+			"name": "baseline"
+		},
+		{
+			"name": "proxima from disk",
 			"overrides": [
 				{
 					"remotePath": "https://use.typekit.net/af/199a3f/00000000000000007735955e/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3",
-					"localPath": "./nova800.woff"
+					"localPath": "./nova800.woff",
+					"delay": 190
 				},
 				{
 					"remotePath": "https://use.typekit.net/af/98e3f6/000000000000000077359562/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3",
-					"localPath": "./nova700.woff"
+					"localPath": "./nova700.woff",
+					"delay": 190
 				},
 				{
 					"remotePath": "https://use.typekit.net/af/0758f3/000000000000000077359583/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3",
-					"localPath": "./nova500.woff"
+					"localPath": "./nova500.woff",
+					"delay": 160
 				},
 				{
 					"remotePath": "https://use.typekit.net/af/d45b9a/000000000000000077359577/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3",
-					"localPath": "./nova400.woff"
+					"localPath": "./nova400.woff",
+					"delay": 160
 				}
 			]
 		}
