@@ -13,5 +13,8 @@
     "lighthouse": "^9.1.0",
     "puppeteer": "^12.0.1"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.4.1"
+  }
 }
