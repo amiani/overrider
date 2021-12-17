@@ -6,14 +6,15 @@ import mapAsync from "./mapAsync.js";
 import loadExperiment from "./loadExperiment.js";
 import { summarizeExperiment, printExperimentSummary } from "./summarizeExperiment.js";
 
-export default async (experimentPath = '', outPath) => {
-  const experiment = await loadExperiment(experimentPath);
-	const outDir = path.join(path.dirname(experimentPath), `results_${new Date().getTime()}`);
+export default async (experimentConfigPath = '', outPath) => {
+  const experiment = await loadExperiment(experimentConfigPath);
+	const outDir = path.join(path.dirname(experimentConfigPath), `results_${new Date().getTime()}`);
 	const runInterventionConfigured = runIntervention({
 		numSamples: experiment.numSamples,
 		url: experiment.url,
 		logLevel: 'silent',
-		outDir,
+		experimentDir: path.dirname(experimentConfigPath),
+		outDir
 	});
 	
 

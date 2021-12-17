@@ -6,13 +6,21 @@
 	"interventions": [
 		{
 			"name": "baseline",
-			"remotePath": "https://www.retailmenot.com/view/kohls.com",
-			"localPath": "./kohls.com.live"
+			"overrides": [
+				{
+					"remotePath": "https://www.retailmenot.com/view/kohls.com",
+					"localPath": "./kohls.com.live"
+				}
+			]
 		},
 		{
 			"name": "no_pres",
-			"remotePath": "https://www.retailmenot.com/view/kohls.com",
-			"localPath": "./kohls.com.no_pres"
+			"overrides": [
+				{
+					"remotePath": "https://www.retailmenot.com/view/kohls.com",
+					"localPath": "./kohls.com.no_pres"
+				}
+			]
 		}
 	]
 }
