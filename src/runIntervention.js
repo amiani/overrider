@@ -5,28 +5,11 @@ import fs from "fs"
 import path from "path";
 import initOverrides from './initOverrides.js';
 
-import { DESKTOP_EMULATION_METRICS, DESKTOP_USERAGENT, desktopDense4G, NO_THROTTLING } from "./constants.js";
 
-const desktopConfig = {
-	extends: "lighthouse:default",
-	settings: {
-		onlyAudits: [
-			"largest-contentful-paint",
-			"cumulative-layout-shift",
-			"total-blocking-time",
-		],
-		formFactor: "desktop",
-		screenEmulation: DESKTOP_EMULATION_METRICS,
-		emulatedUserAgent: DESKTOP_USERAGENT,
-		throttlingMethod: 'provided',
-		throttling: NO_THROTTLING,
-		maxWaitForLoad: 10000,
-	},
-};
-
-const createBrowser = (initOverrides) =>
+const createBrowser = (initOverrides, chromePath = undefined) =>
 	puppeteer.launch({
-		headless: false,
+		executablePath: chromePath,
+		headless: true,
 		defaultViewport: null,
 		args: [
 			"--disable-web-security",
@@ -41,7 +24,7 @@ const loadOverrides = (basePath = '', overrideConfigs = []) => Promise.all(
 	}))
 );
 
-const sample = ({ url, port, logLevel, config, }) =>
+const sample = ({ url, port, logLevel, lighthouseConfig, }) =>
 	lighthouse(
 		url,
 		{
@@ -49,7 +32,7 @@ const sample = ({ url, port, logLevel, config, }) =>
 			output: "json",
 			logLevel,
 		},
-		config
+		lighthouseConfig
 	);
 
 const saveResult = async ({ dir, name, result }) => {
@@ -60,7 +43,7 @@ const saveResult = async ({ dir, name, result }) => {
 export default ({
 	numSamples = 2,
 	url = "https://www.retailmenot.com/view/kohls.com",
-	config = desktopConfig,
+	lighthouseConfig,
 	logLevel = "info",
 	experimentDir,
 	outDir,
@@ -77,7 +60,7 @@ async (intervention) => {
 				url,
 				port: new URL(browser.wsEndpoint()).port,
 				logLevel,
-				config,
+				lighthouseConfig,
 			});
 			results.push(result);
 			outDir && await saveResult({ dir: outDir, name: `intervention-${intervention.name}-${i}`, result });

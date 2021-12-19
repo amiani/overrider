@@ -5,23 +5,48 @@ import runIntervention from './runIntervention.js';
 import mapAsync from "./mapAsync.js";
 import loadExperiment from "./loadExperiment.js";
 import { summarizeExperiment, printExperimentSummary } from "./summarizeExperiment.js";
+import { DESKTOP_EMULATION_METRICS, DESKTOP_USERAGENT, desktopDense4G, NO_THROTTLING } from "./constants.js";
 
-export default async (experimentConfigPath = '', outPath) => {
-  const experiment = await loadExperiment(experimentConfigPath);
+const desktopConfig = {
+	extends: "lighthouse:default",
+	settings: {
+		onlyAudits: [
+			"largest-contentful-paint",
+			"cumulative-layout-shift",
+			"total-blocking-time",
+		],
+		formFactor: "desktop",
+		screenEmulation: DESKTOP_EMULATION_METRICS,
+		emulatedUserAgent: DESKTOP_USERAGENT,
+		throttlingMethod: 'devtools',
+		throttling: NO_THROTTLING,
+		//maxWaitForLoad: 10000,
+	},
+};
+
+export default async (experimentConfigPath = '') => {
+  const experimentConfig = await loadExperiment(experimentConfigPath);
 	const outDir = path.join(path.dirname(experimentConfigPath), `results_${new Date().getTime()}`);
+	const lighthouseConfig = {
+		...desktopConfig,
+		throttling: {
+			...NO_THROTTLING,
+			cpuSlowdownMultiplier: experimentConfig.throttling.cpuSlowdownMultiplier,
+		}
+	};
 	const runInterventionConfigured = runIntervention({
-		numSamples: experiment.numSamples,
-		url: experiment.url,
+		numSamples: experimentConfig.numSamples,
+		url: experimentConfig.url,
 		logLevel: 'silent',
 		experimentDir: path.dirname(experimentConfigPath),
-		outDir
+		outDir,
+		lighthouseConfig
 	});
 	
-
 	let results;
 	try {
-		await throttle.start({ up: 10 * 1024, down: 10 * 1024, rtt: 40 });
-		results = await mapAsync(runInterventionConfigured)(experiment.interventions);
+		await throttle.start(experimentConfig.throttling);
+		results = await mapAsync(runInterventionConfigured)(experimentConfig.interventions);
 	} catch (err) {
 		console.error(err);
 	} finally {
@@ -29,5 +54,5 @@ export default async (experimentConfigPath = '', outPath) => {
 	}
 
 	const summary = summarizeExperiment(results);
-	printExperimentSummary({ experiment, summary });
+	printExperimentSummary({ experiment: experimentConfig, summary });
 }

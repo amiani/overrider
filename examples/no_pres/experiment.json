@@ -1,8 +1,14 @@
 {
 	"name": "no_pres",
 	"url": "https://www.retailmenot.com/view/kohls.com",
-	"numSamples": 50,
+	"numSamples": 20,
 	"outputDir": "./results",
+	"throttling": {
+		"up": 10240,
+		"down": 10240,
+		"rtt": 40,
+		"cpuSlowdownMultiplier": 8
+	},
 	"interventions": [
 		{
 			"name": "baseline",
