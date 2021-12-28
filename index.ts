@@ -1,4 +1,4 @@
-import runExperiment from "./src/runExperiment.js";
+import runExperiment from "./src/runExperiment";
 
 const [experimentPath] = process.argv.slice(2);
 
