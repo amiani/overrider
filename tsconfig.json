@@ -20,6 +20,9 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "outDir": "./dist/tsc/",
+    "paths": {
+      "@sitespeed.io/throttle": ["./types/throttle"]
+    },
     "types": [
       "node",
       "jest"
@@ -31,10 +34,13 @@
   },
   "include": [
     "src/**/*.ts",
-    "types/**/*.d.ts"
+    "types/**/*.d.ts",
+    "node_modules/lighthouse/types/**/*.d.ts",
+    "src/runIntervention.js",
+    "src/initOverrides.ts"
   ],
   "exclude": [
-    "node_modules",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "node_modules"
   ]
 }

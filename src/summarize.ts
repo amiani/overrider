@@ -1,6 +1,8 @@
-const mean = (nums = []) => nums.reduce((a, b) => a + b, 0) / nums.length;
+export const mean = (nums: number[]) => {
+	return nums.reduce((a, b) => a + b, 0) / nums.length;
+}
 
-const median = (nums = []) => {
+const median = (nums: number[]) => {
 	const sorted = nums.sort((a, b) => a - b);
 	const mid = Math.floor(sorted.length / 2);
 	return sorted.length % 2 === 0
@@ -8,19 +10,30 @@ const median = (nums = []) => {
 		: sorted[mid];
 };
 
-const variance = (nums = []) => {
+const variance = (nums: number[]) => {
 	const avg = mean(nums);
 	return nums.reduce((a, b) => a + Math.pow(b - avg, 2), 0) / (nums.length - 1);
 };
 
-const std = (nums = []) => Math.sqrt(variance(nums));
+const std = (nums: number[]) => Math.sqrt(variance(nums));
 
-const mad = (nums = []) => {
+const mad = (nums: number[]) => {
 	const med = median(nums);
-	return median(nums.map(num => Math.abs(num - med)));
+	const distances = nums.map(num => Math.abs(num - med));
+	return median(distances);
 };
 
-export const summarize = (nums = []) => ({
+export interface Summary {
+	n: number;
+	min: number;
+	max: number;
+	mean: number;
+	median: number;
+	mad: number;
+	std: number;
+}
+
+export const summarize = (nums: number[]): Summary => ({
 	n: nums.length,
 	min: Math.min(...nums),
 	max: Math.max(...nums),
@@ -30,7 +43,7 @@ export const summarize = (nums = []) => ({
 	std: std(nums),
 });
 
-export const printSummary = (scale = 2) => (summary) => `\
+export const printSummary = (scale = 2) => (summary: Summary) => `\
 min: ${summary.min.toFixed(scale)} mean: ${summary.mean.toFixed(scale)} \
 median: ${summary.median.toFixed(scale)} MAD: ${summary.mad.toFixed(scale)} \
 max: ${summary.max.toFixed(scale)}\

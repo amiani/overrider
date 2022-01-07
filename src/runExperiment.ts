@@ -1,13 +1,14 @@
 import throttle from "@sitespeed.io/throttle";
 import path from 'path';
 
-import runIntervention from './runIntervention.js';
-import mapAsync from "./mapAsync.js";
-import loadExperiment from "./loadExperiment.js";
-import { summarizeExperiment, printExperimentSummary } from "./summarizeExperiment.js";
-import { DESKTOP_EMULATION_METRICS, DESKTOP_USERAGENT, desktopDense4G, NO_THROTTLING } from "./constants.js";
+import runIntervention from './runIntervention';
+import mapAsync from "./mapAsync";
+import loadExperiment from "./loadExperiment";
+import { summarizeExperiment, printExperimentSummary } from "./summarizeExperiment";
+import { DESKTOP_EMULATION_METRICS, DESKTOP_USERAGENT, desktopDense4G, NO_THROTTLING } from "./constants";
+import Config from 'lighthouse/types/config';
 
-const desktopConfig = {
+const desktopConfig: Config.Json = {
 	extends: "lighthouse:default",
 	settings: {
 		onlyAudits: [
@@ -24,7 +25,7 @@ const desktopConfig = {
 	},
 };
 
-export default async (experimentConfigPath = '') => {
+export default async (experimentConfigPath: string) => {
   const experimentConfig = await loadExperiment(experimentConfigPath);
 	const outDir = path.join(path.dirname(experimentConfigPath), `results_${new Date().getTime()}`);
 	const lighthouseConfig = {
@@ -43,16 +44,15 @@ export default async (experimentConfigPath = '') => {
 		lighthouseConfig
 	});
 	
-	let results;
 	try {
 		await throttle.start(experimentConfig.throttling);
-		results = await mapAsync(runInterventionConfigured)(experimentConfig.interventions);
+		const results = await mapAsync(runInterventionConfigured)(experimentConfig.interventions);
+		const summary = summarizeExperiment(results);
+		printExperimentSummary(experimentConfig, summary);
 	} catch (err) {
 		console.error(err);
 	} finally {
 		await throttle.stop();
 	}
 
-	const summary = summarizeExperiment(results);
-	printExperimentSummary({ experiment: experimentConfig, summary });
 }
