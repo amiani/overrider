@@ -9,7 +9,7 @@ import { RunnerResult } from 'lighthouse/types/externs';
 import type Config from 'lighthouse/types/config';
 
 import initOverrides from './initOverrides';
-import type { Intervention } from './loadExperiment';
+import type { Intervention, Override } from './loadExperiment';
 import { loadOverrides } from './loadOverrides';
 
 
@@ -22,6 +22,11 @@ const createBrowser = (chromePath = undefined): Promise<Browser> =>
 			"--disable-web-security",
 		]
 	});
+
+const setupOverrides = async (browser: Browser, experimentDir: string, overrides: Override[]) => {
+	const overrideConfigs = await loadOverrides(experimentDir, overrides);
+	browser.on("targetcreated", initOverrides(overrideConfigs));
+}
 
 interface LighthouseParams {
 	url: string;
@@ -70,11 +75,7 @@ async (intervention: Intervention) => {
 		let browser;
 		try {
 			browser = await createBrowser();
-			//wrong level of detail here... hard to read
-			if (intervention.overrides) {
-				const overrideConfigs = await loadOverrides(experimentDir, intervention.overrides);
-				browser.on("targetcreated", initOverrides(overrideConfigs));
-			}
+			intervention.overrides && await setupOverrides(browser, experimentDir, intervention.overrides);
 			const result = await sample({
 				url,
 				port: new URL(browser.wsEndpoint()).port,
