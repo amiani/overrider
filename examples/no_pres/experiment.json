@@ -15,16 +15,16 @@
 			"overrides": [
 				{
 					"remotePath": "https://www.retailmenot.com/view/kohls.com",
-					"localPath": "./kohls.com.live"
+					"localPath": "./kohls.com.live.html"
 				}
 			]
 		},
 		{
-			"name": "no_pres",
+			"name": "rmnweb-2423",
 			"overrides": [
 				{
 					"remotePath": "https://www.retailmenot.com/view/kohls.com",
-					"localPath": "./kohls.com.no_pres"
+					"localPath": "./kohls.com.rmnweb-2423.html"
 				}
 			]
 		}
